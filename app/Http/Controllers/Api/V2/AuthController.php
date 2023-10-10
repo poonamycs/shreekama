@@ -98,6 +98,7 @@ class AuthController extends Controller
 
     public function resendCode()
     {
+        
         $user = auth()->user();
         $user->verification_code = rand(100000, 999999);
 
