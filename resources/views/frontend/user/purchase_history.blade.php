@@ -14,6 +14,7 @@
                         <th>{{ translate('Amount')}}</th>
                         <th data-breakpoints="md">{{ translate('Delivery Status')}}</th>
                         <th data-breakpoints="md">{{ translate('Payment Status')}}</th>
+                        <th data-breakpoints="md">{{ translate('Stiching')}}</th>
                         <th class="text-right pr-0">{{ translate('Options')}}</th>
                     </tr>
                 </thead>
@@ -48,6 +49,13 @@
                                     @if($order->payment_status_viewed == 0)
                                         <span class="ml-2" style="color:green"><strong>*</strong></span>
                                     @endif
+                                </td>
+                                <td>
+                                    <span class="badge badge-inline badge-success p-3 fs-12" style="border-radius: 25px; min-width: 80px !important;">
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        {{translate('Stiching')}}</a>
+                                    </span>
+                                    
                                 </td>
                                 <!-- Options -->
                                 <td class="text-right pr-0">
@@ -87,6 +95,7 @@
                             </tr>
                         @endif
                     @endforeach
+                    
                 </tbody>
             </table>
             <!-- Pagination -->
@@ -95,6 +104,7 @@
             </div>
         </div>
     </div>
+    
 @endsection
 
 @section('modal')

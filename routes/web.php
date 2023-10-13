@@ -109,7 +109,7 @@ Route::controller(VerificationController::class)->group(function () {
     Route::get('/email/resend', 'resend')->name('verification.resend');
     Route::get('/verification-confirmation/{code}', 'verification_confirmation')->name('email.verification.confirmation');
 });
-
+    Route::match(['get','post'], 'user/login', [HomeController::class, 'userLogin'])->name('user.login');
     Route::match(['get','post'], '/users/user-otp', [HomeController::class, 'verifyotp']);
     Route::match(['get','post'], 'users/resend-otp', [HomeController::class, 'verifyreotp']);
 

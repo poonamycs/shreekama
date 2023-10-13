@@ -18,7 +18,7 @@
                                     <!-- Login form -->
                                     <div class="pt-3 pt-lg-4">
                                         <div class="">
-                                            <form class="form-default" role="form" action="{{ url('user_login') }}" method="POST">
+                                            <form class="form-default" role="form" action="{{ url('user/login') }}" method="POST">
                                                 @csrf
                                                 
                                                 <!-- Email or Phone -->

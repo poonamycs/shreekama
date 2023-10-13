@@ -91,7 +91,7 @@ class HomeController extends Controller
     {
         return view('frontend.partials.best_sellers_section');
     }
-
+    
     public function login()
     {
         if (Auth::check()) {

@@ -182,6 +182,7 @@
         
         $(document).on('change', '[name=country_id]', function() {
             var country_id = $(this).val();
+            
             get_states(country_id);
         });
 
