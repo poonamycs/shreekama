@@ -6,8 +6,10 @@ use App\Models\Cart;
 use DB;
 use Auth;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Upload;
 use App\Models\Product;
+use App\Models\Measurment;
 use App\Utility\CartUtility;
 use Cookie;
 use Illuminate\Http\Request;
@@ -24,7 +26,47 @@ class PurchaseHistoryController extends Controller
         $orders = Order::with('orderDetails')->where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(10);
         return view('frontend.user.purchase_history', compact('orders'));
     }
-
+    public function stiching_product_list($id)
+    {
+        $order_details = OrderDetail::with('product')->where('order_id',decrypt($id))->get();
+        return view('frontend.user.stiching_product_list', compact('order_details'));
+    }
+    public function measurment_details(Request $request,$id1=null,$id2=null)
+    {
+        
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $measurment = Measurment::where('order_id',$data['order_id'])->where('product_id',$data['product_id'])->where('user_id',$data['user_id'])->first();
+            if(empty($measurment))
+            {
+                $measurment = new Measurment();
+            }
+            $measurment->order_id = $data['order_id'];
+            $measurment->user_id = $data['user_id'];
+            $measurment->name = $data['name'];
+            $measurment->product_id = $data['product_id'];
+            $measurment->phone = $data['phone'];
+            $measurment->email = $data['email'];
+            $measurment->height = $data['height'];
+            $measurment->bust = $data['bust'];
+            $measurment->length = $data['length'];
+            $measurment->waist = $data['waist'];
+            $measurment->hip = $data['hip'];
+            $measurment->sleeves = $data['sleeves'];
+            $measurment->neck = $data['neck'];
+            $measurment->thigh = $data['thigh'];
+            $measurment->knee = $data['knee'];
+            $measurment->bottom_length = $data['bottom_length'];
+            $measurment->bottom = $data['bottom'];
+            $measurment->umberrla = $data['umberrla'];
+            $measurment->garment = $data['garment'];
+            $measurment->information = $data['information'];
+            $measurment->save();
+            return redirect('/stiching-product-list/'.encrypt($data['order_id']));
+        }
+        $measurment = Measurment::where('order_id',$id1)->where('product_id',decrypt($id2))->where('user_id',Auth::user()->id)->first();
+        return view('frontend.user.measurment_detail',compact('measurment','id1','id2'));
+    }
     public function digital_index()
     {
         $orders = DB::table('orders')

@@ -51,10 +51,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="badge badge-inline badge-success p-3 fs-12" style="border-radius: 25px; min-width: 80px !important;">
-                                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        {{translate('Stiching')}}</a>
-                                    </span>
+                                    <!-- <span class="badge badge-inline badge-success p-3 fs-12" style="border-radius: 25px; min-width: 80px !important;"> -->
+                                        <a class="btn btn-primary" href="{{url('/stiching-product-list/'.encrypt($order->id))}}" role="button">
+                                            {{translate('Stiching')}}
+                                        </a>
+                                        
+                                    <!-- </span> -->
                                     
                                 </td>
                                 <!-- Options -->
