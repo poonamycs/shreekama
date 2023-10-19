@@ -1,5 +1,18 @@
 @extends('frontend.layouts.app')
-
+<style>
+    label[for="name"] {
+        color:red;
+        margin-left:-260px;
+    }
+    label[for="phone"] {
+        color:red;
+        margin-left:-210px;
+    }
+    label[for="checkbox_example_1"] {
+        color:red;
+        margin-left:-9px;
+    }
+</style>
 @section('content')
     <section class="gry-bg py-6"  style="background-image:url('{{asset('assets/img/registerbg.png')}}');background-size: contain;background-repeat: no-repeat;">
         <div class="profile">
@@ -21,11 +34,11 @@
                                                 @csrf
                                                 <!-- Name -->
                                                 <div class="form-group">
-                                            <input type="text" class="form-control" value="{{ old('name') }}" placeholder="Full Name *" name="name">
+                                            <input type="text" class="form-control" value="{{ old('name') }}" placeholder="Full Name *" name="name" id="name">
                                         </div>
                                                 <input type="hidden" name="country_code" value="91">
                                                 <!-- Email or Phone -->
-                                                @if (addon_is_activated('otp_system'))
+                                                <!-- @if (addon_is_activated('otp_system'))
                                                     <div class="form-group phone-form-group mb-1">
                                                         <label for="phone" class="fs-12 fw-700 text-soft-dark">{{  translate('Phone') }}</label>
                                                         <input type="tel" id="phone-code" class="form-control rounded-0{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="" name="phone" id="phone" autocomplete="off">
@@ -42,18 +55,18 @@
                                                     <div class="form-group text-right">
                                                         <button class="btn btn-link p-0 text-primary" type="button" onclick="toggleEmailPhone(this)"><i>*{{ translate('Use Email Instead') }}</i></button>
                                                     </div>
-                                                @else
+                                                @else -->
                                                     <div class="form-group">
                                                         {{-- <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label> --}}
                                                         <input type="email" class="form-control rounded-0{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                                         
                                                     </div>
-                                                @endif
+                                                <!-- @endif -->
 
                                                 <!-- Mobile -->
                                                 <div class="form-group">
                                                     {{-- <label for="name" class="fs-12 fw-700 text-soft-dark">Mobile</label> --}}
-                                                    <input type="text" class="form-control rounded-0{{ $errors->has('mobile') ? ' is-invalid' : '' }}" value="{{ old('mobile') }}" placeholder="Mobile" name="phone" id="phone">
+                                                    <input type="text" class="form-control rounded-0{{ $errors->has('mobile') ? ' is-invalid' : '' }}" value="{{ old('mobile') }}" placeholder="Mobile *" name="phone" id="phone" minlength="10" maxlength="10">
                                                     
                                                 </div>
 
@@ -191,11 +204,12 @@
             });
         });
         @endif
-        $(document).ready(function() {
-                $('#phone').on('keypress', function (event) {
-                setTimeout(function(){
-                    $('.error').hide()
-                }, 1000);
+    </script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js'></script>
+<script>
+    $(document).ready(function ($) {
+        $('#phone').on('keypress', function (event) {
                 var x = event.which || event.keycode;
                 var mobile = $('#mobile').val();
                 if(!(x>=48 && x<=57))
@@ -206,40 +220,33 @@
                 }
             });
             $('#name').on('keypress', function (event) {
-                setTimeout(function(){
-                    $('.error').hide()
-                }, 1000);
                 var inputValue = event.which;
-                if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                if(!(inputValue >= 65 && inputValue <= 90) && !(inputValue >= 97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
                     event.preventDefault(); 
                 }
             });
-        });
-    </script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js'></script>
-<script>
-    $(document).ready(function ($) {
-    // alert('test123');
     // jQuery.validator.addMethod("lettersonly", function(value, element) {
     //     return this.optional(element) || /^[a-zA-Z]+$/i.test(value);
     // }, "Letters only please *");
     $.validator.addMethod("Strongpassword",function(value){
         return /(?=.*[!@#$%^&*Z()<>,./?])((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(value);
     },"Please use at least one capital letter, special character and number.");
+
     $("#reg-form").validate({
      
         rules:{
-            email:{
+            phone:{
                 required:true,
-                email: true,
+                number: true,
+                maxlength:10,
+                minlength:10,
             },
             password:{
                 required:true,
             },
             name:{
                 required:true,
-                // lettersonly:true,
+                lettersonly:true,
             },
             
             password:{
@@ -257,9 +264,11 @@
            
         },
         messages:{
-            email:{ 
-                email: "Please enter valid email",
-                required: "This field is required",
+            phone:{
+                required: "Please enter mobile number",
+                number: "Please enter valid mobile number",
+                maxlength: "Please enter {0} digit mobile number",
+                minlength: "Please enter {0} digit mobile number",
             },
             password: {
                 required:"This field is required *",

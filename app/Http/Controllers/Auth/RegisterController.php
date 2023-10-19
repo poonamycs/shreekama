@@ -127,9 +127,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         // if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+        if($request->email != null)
+        {
         if(User::where('email', $request->email)->first() != null){
-            flash(translate('Email or Phone already exists.'));
+            flash(translate('Email already exists.'));
             return back();
+        }
         }
         // }
         else if (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
