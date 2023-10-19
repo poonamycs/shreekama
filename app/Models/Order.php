@@ -10,7 +10,7 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
-
+    
     public function refund_requests()
     {
         return $this->hasMany(RefundRequest::class);

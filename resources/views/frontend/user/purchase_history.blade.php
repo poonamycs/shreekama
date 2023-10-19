@@ -112,6 +112,7 @@
 @section('modal')
     <!-- Delete modal -->
     @include('modals.delete_modal')
-
+    
+    
 @endsection
 

@@ -292,7 +292,13 @@
                                         <span class="aiz-side-nav-text">{{translate('All Orders')}}</span>
                                     </a>
                                 </li>
+                                <li class="aiz-side-nav-item">
+                                    <a href="{{ route('all_stiching_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['all_stiching_orders.index', 'all_stiching_orders.show'])}}">
+                                        <span class="aiz-side-nav-text">{{translate('All Stiching Orders')}}</span>
+                                    </a>
+                                </li>
                             @endcan
+
                             <!-- @can('view_inhouse_orders')
                                 <li class="aiz-side-nav-item">
                                     <a href="{{ route('inhouse_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['inhouse_orders.index', 'inhouse_orders.show'])}}" >

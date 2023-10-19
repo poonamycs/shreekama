@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Address;
 use App\Models\Product;
+use App\Models\Measurment;
 use App\Models\ProductStock;
 use App\Models\OrderDetail;
 use App\Models\CouponUsage;
@@ -97,7 +98,33 @@ class OrderController extends Controller
         $orders = $orders->paginate(15);
         return view('backend.sales.index', compact('orders', 'sort_search', 'payment_status', 'delivery_status', 'date'));
     }
-
+    public function all_stiching_orders(Request $request)
+    {
+        $date = $request->date;
+        $sort_search = null;
+        $delivery_status = null;
+        $payment_status = '';
+        $measurments = Measurment::orderBy('id', 'desc');
+        $admin_user_id = User::where('user_type', 'admin')->first()->id;
+        if ($request->search) {
+            $sort_search = $request->search;
+            $measurments = $measurments->where('code', 'like', '%' . $sort_search . '%');
+        }
+        if ($request->payment_status != null) {
+            $measurments = $measurments->where('payment_status', $request->payment_status);
+            $payment_status = $request->payment_status;
+        }
+        if ($request->delivery_status != null) {
+            $measurments = $measurments->where('delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($date != null) {
+            $measurments = $measurments->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $date)[0])) . '  00:00:00')
+                ->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $date)[1])) . '  23:59:59');
+        }
+        $measurments = $measurments->paginate(15);
+        return view('backend.sales.stichingindex', compact('measurments', 'sort_search', 'payment_status', 'delivery_status', 'date'));
+    }
     public function show($id)
     {
         $order = Order::findOrFail(decrypt($id));
