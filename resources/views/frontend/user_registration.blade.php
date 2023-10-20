@@ -34,73 +34,23 @@
                                                 @csrf
                                                 <!-- Name -->
                                                 <div class="form-group">
-                                            <input type="text" class="form-control" value="{{ old('name') }}" placeholder="Full Name *" name="name" id="name">
-                                        </div>
+                                                    <input type="text" class="form-control" value="{{ old('name') }}" placeholder="Full Name *" name="name" id="name">
+                                                </div>
                                                 <input type="hidden" name="country_code" value="91">
                                                 <!-- Email or Phone -->
-                                                <!-- @if (addon_is_activated('otp_system'))
-                                                    <div class="form-group phone-form-group mb-1">
-                                                        <label for="phone" class="fs-12 fw-700 text-soft-dark">{{  translate('Phone') }}</label>
-                                                        <input type="tel" id="phone-code" class="form-control rounded-0{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="" name="phone" id="phone" autocomplete="off">
-                                                    </div>
-
-                                                    
-
-                                                    <div class="form-group email-form-group mb-1 d-none">
-                                                        <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label>
-                                                        <input type="email" class="form-control rounded-0 {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email"  autocomplete="off">
-                                                       
-                                                    </div>
-
-                                                    <div class="form-group text-right">
-                                                        <button class="btn btn-link p-0 text-primary" type="button" onclick="toggleEmailPhone(this)"><i>*{{ translate('Use Email Instead') }}</i></button>
-                                                    </div>
-                                                @else -->
+                                                
                                                     <div class="form-group">
                                                         {{-- <label for="email" class="fs-12 fw-700 text-soft-dark">{{  translate('Email') }}</label> --}}
                                                         <input type="email" class="form-control rounded-0{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                                         
                                                     </div>
-                                                <!-- @endif -->
-
+                                                
                                                 <!-- Mobile -->
                                                 <div class="form-group">
-                                                    {{-- <label for="name" class="fs-12 fw-700 text-soft-dark">Mobile</label> --}}
+                                                    {{-- <label for="mobile" class="fs-12 fw-700 text-soft-dark">Mobile</label> --}}
                                                     <input type="text" class="form-control rounded-0{{ $errors->has('mobile') ? ' is-invalid' : '' }}" value="{{ old('mobile') }}" placeholder="Mobile *" name="phone" id="phone" minlength="10" maxlength="10">
                                                     
                                                 </div>
-
-                                                <!-- password -->
-                                                <!-- <div class="form-group">
-                                                    <label for="password" class="fs-12 fw-700 text-soft-dark">{{  translate('Password') }}</label>
-                                                    <input type="password" class="form-control rounded-0{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Password') }}" name="password">
-                                                    <div class="text-right mt-1">
-                                                        <span class="fs-12 fw-400 text-gray-dark">{{ translate('Password must contain at least 6 digits') }}</span>
-                                                    </div>
-                                                    @if ($errors->has('password'))
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('password') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div> -->
-
-                                                <!-- password Confirm -->
-                                                <!-- <div class="form-group">
-                                                    <label for="password_confirmation" class="fs-12 fw-700 text-soft-dark">{{  translate('Confirm Password') }}</label>
-                                                    <input type="password" class="form-control rounded-0" placeholder="{{  translate('Confirm Password') }}" name="password_confirmation">
-                                                </div> -->
-
-                                                <!-- Recaptcha -->
-                                                <!-- @if(get_setting('google_recaptcha') == 1)
-                                                    <div class="form-group">
-                                                        <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
-                                                    </div>
-                                                    @if ($errors->has('g-recaptcha-response'))
-                                                        <span class="invalid-feedback" role="alert" style="display: block;">
-                                                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                @endif -->
 
                                                 <!-- Terms and Conditions -->
                                                 <div class="mb-3">
@@ -246,7 +196,6 @@
             },
             name:{
                 required:true,
-                lettersonly:true,
             },
             
             password:{

@@ -54,7 +54,12 @@
         content="{{ get_system_default_currency()->code }}" />
     <meta property="fb:app_id" content="{{ env('FACEBOOK_PIXEL_ID') }}">
 @endsection
-
+<style>
+    label[for="phone"] {
+        color: red;
+        margin-left: -180px;
+    }
+</style>
 @section('content')
     <section class="mb-4 pt-3">
         <div class="container">
@@ -233,6 +238,37 @@
 @endsection
 
 @section('script')
+<script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js'></script>
+<script>
+    $(document).ready(function ($) {
+    $("#userlogin").validate({
+     
+        rules:{
+            phone:{
+                required:true,
+                number: true,
+                maxlength:10,
+                minlength:10,
+            },
+           
+        },
+        messages:{
+            phone:{ 
+                required: "Please enter mobile number",
+                number: "Please enter valid mobile number",
+                maxlength: "Please enter {0} digit mobile number",
+                minlength: "Please enter {0} digit mobile number"
+            },
+            
+        },
+        submitHandler: function(form) {
+            $("#userlogin").attr("disabled", true);
+            form.submit();
+        }
+        });
+    });
+</script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             getVariantPrice();
@@ -352,4 +388,5 @@
             @endif
         }
     </script>
+    
 @endsection

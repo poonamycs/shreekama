@@ -1,5 +1,10 @@
 @extends('frontend.layouts.app')
-
+<style>
+    label[for="phone"] {
+        color: red;
+        margin-left: -180px;
+    }
+</style>
 @section('content')
 <link rel='stylesheet' href='https://cdn.rawgit.com/sachinchoolur/lightgallery.js/master/dist/css/lightgallery.css'>
     <!-- Sliders & Today's deal -->
@@ -579,9 +584,35 @@
     <script src='https://cdn.rawgit.com/sachinchoolur/lg-hash.js/master/dist/lg-hash.js'></script>
     <script src='https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js'></script>
   
-      
+    <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js'></script> 
     <script>
         $(document).ready(function(){
+            
+            $("#userlogin").validate({
+     
+            rules:{
+                phone:{
+                    required:true,
+                    number: true,
+                    maxlength:10,
+                    minlength:10,
+                },
+                
+            },
+            messages:{
+                phone:{ 
+                    required: "Please enter mobile number",
+                    number: "Please enter valid mobile number",
+                    maxlength: "Please enter {0} digit mobile number",
+                    minlength: "Please enter {0} digit mobile number"
+                },
+                
+            },
+            submitHandler: function(form) {
+                $("#userlogin").attr("disabled", true);
+                form.submit();
+            }
+            });
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_featured').html(data);
                 AIZ.plugins.slickCarousel();
