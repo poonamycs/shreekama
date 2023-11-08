@@ -215,6 +215,22 @@
                                                         <td class="text-right border-top-0 pr-0 py-2">
                                                             <span>{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                                         </td>
+
+                                                        @if($order->state == "Gujarat")
+                                                        <th scope="col" class="border-top-0 py-2">{{ translate('SGST') }}</th>
+                                                        <th scope="col" class="border-top-0 py-2">{{ translate('CGST') }}</th>
+                                                        <td class="text-right border-top-0 pr-0 py-2">
+                                                            <span>{{ single_price($order->orderDetails->sum('tax')) }}</span>
+                                                        </td><td class="text-right border-top-0 pr-0 py-2">
+                                                            <span>{{ single_price($order->orderDetails->sum('tax')) }}</span>
+                                                        </td>
+                                                        @else
+                                                        <th scope="col" class="border-top-0 py-2">{{ translate('IGST') }}</th>
+                                                        <td class="text-right border-top-0 pr-0 py-2">
+                                                            <span>{{ single_price($order->orderDetails->sum('tax')) }}</span>
+                                                        </td>
+                                                        @endif
+
                                                     </tr>
                                                     <!-- Coupon Discount -->
                                                     <tr>

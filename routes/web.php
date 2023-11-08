@@ -292,7 +292,8 @@ Route::group(['middleware' => ['customer', 'verified', 'unbanned']], function ()
         Route::get('/digital-products/download/{id}', 'download')->name('digital-products.download');
         Route::get('/stiching-product-list/{id?}', 'stiching_product_list')->name('stiching_product.list');
         Route::get('/measurment-details/{id1}/{id2}', 'measurment_details')->name('measurment_details');
-        Route::post('/measurment','measurment_details')->name('measurment.update');
+        Route::any('/measurment-payment/{id1?}/{id2?}','measurment_payment')->name('measurment.payment');
+        Route::any('/measurment','measurment_details')->name('measurment.update');
         Route::get('/re-order/{id}', 're_order')->name('re_order');
     });
 
