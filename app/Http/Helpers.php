@@ -52,8 +52,27 @@ use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\CommissionController;
 use AizPackages\ColorCodeConverter\Services\ColorCodeConverter;
+use Plivo\RestClient;
 
 //sensSMS function for OTP
+function sendMessagePlivo($phone, $message, $temp_id) {
+    $client = new RestClient(config('app.plivo_auth_id'), config('app.plivo_auth_token'));
+    try {
+        $response = $client->messages->create(
+            [
+                "src" => "SRKAMA",
+                "dst" => $phone,
+                "text" => $message,
+                "dlt_entity_id" => "1201169390164123051",
+                "dlt_template_id" => $temp_id,
+                "dlt_template_category" => "service_implicit"
+                ]);
+                return response()->json(['message' => 'Message sent successfully'], 200);
+        
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 400);
+    }
+}
 if (!function_exists('sendSMS')) {
     function sendSMS($to, $from, $text, $template_id)
     {

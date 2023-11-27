@@ -142,7 +142,8 @@ return [
     'razor_key' => env('RAZOR_KEY'),
     'razor_secret' => env('RAZOR_SECRET'),
     
-
+    'plivo_auth_id' => env('PLIVO_AUTH_ID'),
+    'plivo_auth_token' => env('PLIVO_AUTH_TOKEN'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

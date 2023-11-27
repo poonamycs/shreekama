@@ -34,6 +34,7 @@
         "myfatoorah/laravel-package": "^2.1",
         "niklasravnsborg/laravel-pdf": "^4.1",
         "paypal/paypal-checkout-sdk": "dev-master",
+        "plivo/plivo-php": "^4.59",
         "predis/predis": "^2.1",
         "psr/log": "^2.0",
         "razorpay/razorpay": "2.*",

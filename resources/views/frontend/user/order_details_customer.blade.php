@@ -209,12 +209,35 @@
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td class="w-50 fw-600">{{ translate('Tax') }}</td>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                 </td>
-                            </tr>
+                            </tr> -->
+
+                            @if(json_decode($first_order->shipping_address)->state == "Punjab")
+                                                    <tr>
+                                                        <th class="w-50 fw-600">SGST</th>
+                                                        <td class="text-right">
+                                                            <span class="text-italic">{{ single_price(($order->orderDetails->sum('price') - $order->orderDetails->sum('price') / (1+($order->orderDetails->sum('tax')/$order->orderDetails->sum('price'))))/2) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="w-50 fw-600">CGST</th>
+                                                        <td class="text-right">
+                                                            <span class="text-italic">{{ single_price(($order->orderDetails->sum('price') - $order->orderDetails->sum('price') / (1+($order->orderDetails->sum('tax')/$order->orderDetails->sum('price'))))/2) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    @else
+                                                    <tr>
+                                                        <th class="w-50 fw-600">IGST</th>
+                                                        <td class="text-right">
+                                                            <span class="text-italic">{{ single_price($order->orderDetails->sum('price') - $order->orderDetails->sum('price') / (1+($order->orderDetails->sum('tax')/$order->orderDetails->sum('price')))) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    @endif
+
                             <tr>
                                 <td class="w-50 fw-600">{{ translate('Coupon') }}</td>
                                 <td class="text-right">

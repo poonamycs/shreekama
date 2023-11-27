@@ -206,18 +206,24 @@ class HomeController extends Controller
         }
         return view('frontend/user_login');
     }
-    
     public function usersendOTP($mobile, $otp){
-        $message = 'Hello, Your OTP for ShreeKama account login is '.$otp;
-        $template_id = '';
-        $from = '';
-        // $resp = sendSMS($mobile, $from, $message, $template_id)
-        // if($resp){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
+        $phone = '+91'.$mobile;
+        $temp_id = '1207170019465506186';
+        $message = $otp. ' is your Shrikama Creation verification OTP code. - Team Shrikama Creation';
+        $resp = sendMessagePlivo($phone, $message, $temp_id);
+        
     }
+    // public function usersendOTP($mobile, $otp){
+    //     $message = 'Hello, Your OTP for ShreeKama account login is '.$otp;
+    //     $template_id = '';
+    //     $from = '';
+    //     // $resp = sendSMS($mobile, $from, $message, $template_id)
+    //     // if($resp){
+    //     //     return true;
+    //     // }else{
+    //     //     return false;
+    //     // }
+    // }
     public function cart_login(Request $request)
     {
         $user = null;
